@@ -114,6 +114,8 @@ sigs.e <- trading.signals(e.preds, 0.1, -0.1)
 true.sigs <- trading.signals(Tdata.train[1001:1250, "T.ind.AAPL"], 0.1, -0.1)
 sigs.PR(sigs.e, true.sigs)
 
+# Classification using the Kernlab gave the best results
+
 shortTradePolicy <- function(signals,market,opened.pos,money, bet=0.2,hold.time=10,
                      exp.prof=0.025, max.loss= 0.05)
         {
@@ -205,9 +207,9 @@ data(GSPC)
 date <- rownames(Tdata.train[start+len.train,])
 market <- GSPC[paste(date,'/',sep='')][1:len.test]
 
-# learning the model and obtaining its signal predictions
-
-s <- svm(Tform,Tdata.train[trainingData,],cost=10,gamma=0.01)
+# learning the model and obtaining its signal predictions using Kernlab classification
+data <- cbind(signals = signals, Tdata.train[, -1])
+s <- ksvm(signals ~ ., data[trainingData, ], C = 10)
 p <- predict(s,Tdata.train[testingData,])
 sig <- trading.signals(p,0.1,-0.1)
 
