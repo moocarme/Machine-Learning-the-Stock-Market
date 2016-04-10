@@ -8,3 +8,5 @@ This is then used to excute either long trades or short trades on in the market.
 From analysis of the returns the long trades perform better with returns over 18%.
 
 This machie learning process produces good results, however in order to show robust results the method could be improved via muliple training and testing runs by Monte Carlo/bootsrapping at beginning at various times, and evaluating the method.
+
+Guidance from 'Data Mining with R' by V. Kumar
